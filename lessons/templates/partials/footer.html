@@ -1,0 +1,13 @@
+{% load static %}
+<link href="{% static 'custom.css' %}" rel="stylesheet">
+
+<div id="footer">
+    <div class="container">
+        <span>
+            <!-- Footer copyright year will auto-increment
+            See docs: https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#now -->
+            {% now "Y" as current_year %}
+            Copyright © {{ current_year }} Team Aardvark. All Rights Reserved.
+        </span>
+    </div>
+</div>

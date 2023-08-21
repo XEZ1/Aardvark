@@ -1,0 +1,19 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Register one of your children</h1>
+    <p>You can use the form below to register one of your children.</p>
+    <hr/>
+    
+    <!-- Display success messages above button -->
+    {% include '../../partials/messages.html' %}
+
+    <!-- Student child registration form -->
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {% include '../../partials/basic_form.html' with form=form %}
+        <input type="submit" value="Register" class="btn btn-primary btn-sm">
+        <a href="{% url 'dashboard' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

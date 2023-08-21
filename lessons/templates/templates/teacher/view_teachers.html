@@ -1,0 +1,36 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage teacher accounts</h1>
+    <p>Listed below are all of the existing teacher accounts. Click <a href="{% url 'register_teacher' %}">here</a> to register a new teacher account.</p>
+    <hr/>
+
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    
+    <!-- Dynamic table displaying teacher accounts -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.first_name }}</td>
+                <td>{{ teacher.last_name }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>
+                    <a href="{% url 'update_teacher' teacher.username %}" type="button" class="btn btn-primary btn-sm">Update</a>
+                    <a href="{% url 'delete_teacher' teacher.username %}" type="button" class="btn btn-secondary btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

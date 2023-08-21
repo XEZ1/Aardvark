@@ -1,0 +1,62 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+      {% if student_profile %}
+        <h1>View {{ student_profile.user.full_name }}'s transactions</h1>
+      {% else %}
+        <h1>View the school's transactions</h1>
+      {% endif %}
+
+      {% if last_transaction and last_transaction.balance < 0 %}
+        <h3 style="color:red;">Current balance: {{ last_transaction.formatted_balance }}</h3>
+      {% elif last_transaction and last_transaction.balance >= 0 %}
+        <h3 style="color:green;">Current balance: {{ last_transaction.formatted_balance }}</h3>
+      {% endif %}
+      {% if user.type == 'STUDENT' %}
+        <p>Listed below are all your associated bank transfers. Your transfers will be added onto the system by an administrator.</p>
+      {% else %}
+        <p>Listed below are all associated bank transfers. Click <a href="{% url 'register_transfer' %}">here</a> to register a new transfer.</p>
+      {% endif %}
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            {% if view_all and user.type != 'STUDENT' %}
+              <th scope="col">Sender</th>
+            {% endif %}
+            <th scope="col">Ref.</th>
+            <th scope="col">Fee, GBP</th>
+            <th scope="col">Day Balance, GBP</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date }}</td>
+                {% if view_all and user.type != 'STUDENT' %}
+                  <td>{{ transaction.student.user.full_name }}</td>
+                {% endif %}
+                <td>{{ transaction.reference }}</td>
+                <td>{{ transaction.formatted_fee }}</td>
+                {% if transaction.balance < 0 %}
+                  <td style="color:red;">{{ transaction.formatted_balance }}</td>
+                {% else %}
+                  <td style="color:green;">{{ transaction.formatted_balance }}</td>
+                {% endif %}
+
+                <td>
+                {% if transaction.reference != "Payment" %}
+                  <a href="{% url 'view_invoice_for_lesson_booking' transaction.lesson_booking.id %}" type="button" class="btn btn-primary btn-sm">View invoice</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

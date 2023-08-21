@@ -1,0 +1,15 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Register as a student</h1>
+    <p>You can use the form below to register yourself as a new student.</p>
+    <hr/>
+    <!-- Student registration form -->
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {% include '../../partials/basic_form.html' with form=form %}
+        <input type="submit" value="Register" class="btn btn-primary btn-sm">
+        <a href="{% url 'log_in' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

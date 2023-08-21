@@ -1,0 +1,42 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage school terms</h1>
+
+    {% if readonly == False %}
+    <p>Listed below are all current, previous and future school terms. Click <a href="{% url 'register_school_term' %}">here</a> to create a new school term.</p>
+    {%  else %}
+    <p>Listed below are all current, previous and future school terms.</p>
+    {% endif %}
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Term</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            {% if readonly == False %}
+              <th scope="col"></th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for term in terms %}
+            <tr>
+                <td>{{ term.label }}
+                <td>{{ term.start_date }}</td>
+                <td>{{ term.end_date }}</td>
+                {% if readonly == False %}
+                  <td>
+                      <a href="{% url 'update_school_term' term.id %}" type="button" class="btn btn-primary btn-sm">Edit</a>
+                  </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

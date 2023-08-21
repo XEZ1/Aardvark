@@ -1,0 +1,104 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Your administrator dashboard</h1>
+    <p>Welcome {{ user.full_name }}, this is your central portal to get you wherever you need to go within the system.</p>
+    <!-- Administrator users -->
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <div class="row">
+      <!-- Manage existing lesson requests -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Manage student lesson requests</h5>
+            <p class="card-text">View or book existing student lesson requests. You can only book requests that haven't already been fulfilled.</p>
+            <a href="{% url 'view_lesson_requests' %}" class="btn btn-primary">Manage requests</a>
+          </div>
+        </div>
+      </div>
+      <!-- Manage existing lesson bookings -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Manage student lesson bookings</h5>
+            <p class="card-text">View existing student lesson bookings. Students cannot edit bookings but administrators can.</p>
+            <a href="{% url 'view_lesson_bookings' %}" class="btn btn-primary">Manage bookings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Register a new school term -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Register a new school term</h5>
+            <p class="card-text">As a director, you can click on the button below to register a new school term. School terms may not have overlapping dates.</p>
+            <a href="{% url 'register_school_term' %}" class="btn btn-primary">Register school term</a>
+          </div>
+        </div>
+      </div>
+      <!-- Manage existing school terms -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Manage existing school terms</h5>
+            <p class="card-text">View or edit existing school terms. Displayed are present, previous, and future terms.</p>
+            <a href="{% url 'view_school_terms' %}" class="btn btn-primary">Manage school terms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Register a new transfer -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Register a new transfer</h5>
+            <p class="card-text">As a administrator, you can register bank transfers that have taken place outside of this application.</p>
+            <a href="{% url 'register_transfer' %}" class="btn btn-primary">Register transfer</a>
+          </div>
+        </div>
+      </div>  
+      <!-- View existing student accounts -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">View registered student accounts</h5>
+            <p class="card-text">View existing student accounts. You may also access every student's transaction with the school.</p>
+            <a href="{% url 'view_students' %}" class="btn btn-primary">View accounts</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- View existing transfers -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">View school transactions</h5>
+            <p class="card-text">View all recorded bank transfers that have taken place. Transfers cannot be modified.</p>
+            <a href="{% url 'view_all_transactions' %}" class="btn btn-primary">View transactions</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- View existing student accounts -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">View registered student accounts</h5>
+            <p class="card-text">View existing student accounts. You may also access every student's transaction with the school.</p>
+            <a href="{% url 'view_students' %}" class="btn btn-primary">View accounts</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+{% endblock %}

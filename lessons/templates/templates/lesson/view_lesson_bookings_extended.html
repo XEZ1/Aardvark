@@ -1,0 +1,64 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    {% if teacher %}
+      <h1>Your lesson booking timetable</h1>
+    {% else %}
+      <h1>Manage lesson bookings</h1>
+    {% endif %}
+    <p>Listed below are all relavent student lesson bookings.</p>
+
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <form id="search_bar" class="d-flex" action="{% url 'view_lesson_bookings' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="search_term" placeholder="Search by student name or email" aria-label="Search">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+          <tr>
+            {% if teacher == False %}
+              <th scope="col">Teacher</th>
+            {% endif %}
+            <th scope="col">Student</th>
+            <th scope="col">Term</th>
+            <th scope="col">Schedule</th>
+            <th scope="col">Time</th>
+            <th scope="col">Interval</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Quantity</th>
+            {% if teacher == False %}
+              <th scope="col"></th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for lesson_booking in lesson_bookings %}
+            <tr>
+                {% if teacher == False %}
+                  <td>{{ lesson_booking.teacher }}</td>
+                {% endif %}
+                <td>{{ lesson_booking.lesson_request.student_profile.user.full_name }}</td>
+                <td>{{ lesson_booking.school_term.label }}</td>
+                <td>{{ lesson_booking.start_date_actual }} - {{ lesson_booking.end_date_actual }}</td>
+                <td>{{ lesson_booking.regular_day_formatted }} - {{ lesson_booking.regular_start_time }}</td>
+                <td>{{ lesson_booking.interval_formatted }}</td>
+                <td>{{ lesson_booking.duration_formatted }}</td>
+                <td>{{ lesson_booking.quantity }}</td>
+                {% if teacher == False %}
+                <!-- Teachers cannot edit or delete lessons assigned to them -->
+                  <td>
+                      <a href="{% url 'view_invoice_for_lesson_booking' lesson_booking.id %}" type="button" class="btn btn-primary btn-sm">Invoice</a>
+                      <a href="{% url 'update_lesson_booking' lesson_booking.id %}" type="button" class="btn btn-primary btn-sm">Edit</a>
+                      <a href="{% url 'delete_lesson_booking' lesson_booking.id %}" type="button" class="btn btn-secondary btn-sm">Delete</a>
+                  </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

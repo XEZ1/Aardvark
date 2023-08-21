@@ -1,0 +1,38 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage student accounts</h1>
+    <p>Listed below are all of the existing student accounts.</p>
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <form id="search_bar" class="d-flex" action="{% url 'view_students' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="search_term" placeholder="Search by student name or email" aria-label="Search">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.user.first_name }}</td>
+                <td>{{ student.user.last_name }}</td>
+                <td>{{ student.user.email }}</td>
+                <td>
+                    <a href="{% url 'view_transactions' student.user.email %}" type="button" class="btn btn-primary btn-sm">View transactions</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

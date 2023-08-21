@@ -1,0 +1,28 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Request a lesson</h1>
+    <p>You can use the form below to request a lesson. Click <a href="{% url 'register' %}">here</a> to view your existing lesson requests.</p>
+    <hr/>
+
+    <!-- Display error messages above form -->
+    {% include '../../partials/messages.html' %}
+
+
+    {% if previous_booking %}
+        <form action="{% url 'request_repeat_booking' previous_booking.id %}" method="post">
+            {% csrf_token %}
+            {% include '../../partials/basic_form.html' with form=form %}
+            <input type="submit" value="Request" class="btn btn-primary btn-sm">
+            <a href="{% url 'dashboard' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+        </form>
+    {% else %}
+        <form action="{% url 'request_lesson' %}" method="post">
+            {% csrf_token %}
+            {% include '../../partials/basic_form.html' with form=form %}
+            <input type="submit" value="Request" class="btn btn-primary btn-sm">
+            <a href="{% url 'dashboard' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

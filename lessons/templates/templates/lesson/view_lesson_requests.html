@@ -1,0 +1,44 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage lesson requests</h1>
+    <p>Listed below are all of your lesson requests. Click <a href="{% url 'request_lesson' %}">here</a> to request a new lesson. If you have registered children, their requests will be displayed below too.</p>
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Recipient</th>
+            <th scope="col">Interval</th>
+            <th scope="col">Duration</th>
+            <th scope="col">No. of Lessons</th>
+            <th scope="col">Availability</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for lesson_request in lesson_requests %}
+            <tr>
+                <td>{{ lesson_request.student_profile.user.full_name }}
+                <td>{{ lesson_request.interval_formatted }}</td>
+                <td>{{ lesson_request.duration_formatted }}</td>
+                <td>{{ lesson_request.quantity }}</td>
+                <td>{{ lesson_request.availability_formatted }}</td>
+                <td>{{ lesson_request.status }}</td>
+                <td>
+                  {% if lesson_request.status == "Unfulfilled" %}
+                    <a href="{% url 'update_lesson_request' lesson_request.id %}" type="button" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'delete_lesson_request' lesson_request.id %}" type="button" class="btn btn-secondary btn-sm">Delete</a>
+                  {% else %}
+                    <a href="{% url 'request_repeat_booking' lesson_request.lesson_booking.id %}" type="button" class="btn btn-primary btn-sm">Request repeat</a>
+                  {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

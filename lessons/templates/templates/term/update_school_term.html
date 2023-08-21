@@ -1,0 +1,36 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Update term {{ term.label }}</h1>
+    <p>You can use the form below to update this school term.</p>
+    <hr/>
+
+    <!-- Display error messages above form -->
+     {% include '../../partials/messages.html' %}
+
+    <form action="{% url 'update_school_term' term.id %}" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="mb-3">
+                {{ field.label_tag }}
+                
+                {% if field.name == 'label' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field %}
+                {% elif field.name == 'start_date' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="date" %}
+                {% elif field.name == 'end_date' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="date" %}
+                {% endif %}
+
+                <div class="text-danger">
+                    {{ field.errors }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <input type="submit" value="Update" class="btn btn-primary btn-sm">
+        <a href="{% url 'dashboard' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

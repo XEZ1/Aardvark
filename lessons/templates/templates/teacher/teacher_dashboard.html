@@ -1,0 +1,39 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Your teacher dashboard</h1>
+    <p>Welcome {{ user.full_name }}, this is your central portal to get you wherever you need to go within the system.</p>
+    <!-- Administrator users -->
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <div class="row">
+      <!-- Manage existing lesson bookings -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">View your lesson timetable</h5>
+            <p class="card-text">View the lesson bookings that you will be teaching. If something is wrong, please contact a system administrator to edit the booking.</p>
+            <a href="{% url 'view_lesson_bookings' %}" class="btn btn-primary">Manage timetable</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">View the school terms</h5>
+            <p class="card-text">View the existing school terms on the system. If any terms need to be edited or deleted, contact a school administrator.</p>
+            <a href="{% url 'view_school_terms' %}" class="btn btn-primary">View school terms</a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+
+</div>
+{% endblock %}

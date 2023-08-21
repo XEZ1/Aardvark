@@ -1,0 +1,45 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage lesson bookings</h1>
+    <p>Listed below are all of your lesson bookings. Click <a href="{% url 'request_lesson' %}">here</a> to request a new lesson. If you have registered children, their bookings will be displayed below too.</p>
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Recipient</th>
+            <th scope="col">Teacher</th>
+            <th scope="col">Term</th>
+            <th scope="col">Schedule</th>
+            <th scope="col">Time</th>
+            <th scope="col">Interval</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+            <!-- Team member needs to add 'view invoice' column here - done:)-->
+          </tr>
+        </thead>
+        <tbody>
+            {% for lesson_booking in lesson_bookings %}
+            <tr>
+                <td>{{ lesson_booking.lesson_request.student_profile.user.full_name }}</td>
+                <td>{{ lesson_booking.teacher.user.full_name }}</td>
+                <td>{{ lesson_booking.school_term.label }}</td>
+                <td>{{ lesson_booking.start_date_actual }} - {{ lesson_booking.end_date_actual }}</td>
+                <td>{{ lesson_booking.regular_day_formatted }} - {{ lesson_booking.regular_start_time }}</td>
+                <td>{{ lesson_booking.interval_formatted }}</td>
+                <td>{{ lesson_booking.duration_formatted }}</td>
+                <td>{{ lesson_booking.quantity }}</td>
+                <td>
+                  <a href="{% url 'view_invoice_for_lesson_booking' lesson_booking.id %}" type="button" class="btn btn-primary btn-sm">Invoice</a>
+                  <a href="{% url 'request_repeat_booking' lesson_booking.id %}" type="button" class="btn btn-primary btn-sm">Request repeat</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

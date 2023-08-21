@@ -1,0 +1,118 @@
+/*
+Global
+*/
+
+body {
+    /* Make footer stay at the bottom without blocking content */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    margin-bottom: 20px;
+}
+
+footer {
+    margin-top: auto;
+}
+
+h1 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+h2 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: larger;
+}
+
+h3 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: large;
+}
+
+h4 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: medium;
+}
+
+p {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: medium;
+}
+
+/*
+Header
+*/
+
+#header {
+    background-color:#e9ecef;
+    margin-bottom: 30px !important;
+}
+
+#header .nav-item {
+    font-family: "Courier New" !important;
+    font-size: 15px !important;
+}
+
+#header .nav-item:hover {
+    text-decoration: underline;
+}
+
+#header span {
+    font-family: "Courier New";
+    font-size: large;
+    margin-left: -10px;
+}
+
+/*
+Footer
+*/
+
+#footer {
+    background-color:#e9ecef;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+#footer span {
+    color: #717273;
+    font-weight: 500;
+    font-size: small;
+    font-family: "Courier New";
+}
+
+/*
+Forms
+*/
+
+form label {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: medium;
+}
+
+.underfield-label {
+    margin-top: 4px;
+    margin-left: 4px;
+    font-family: 'Trebuchet MS', sans-serif !important;
+    font-size: small !important;
+    font-weight: 100 !important;
+    color:rgb(91, 90, 90) !important;
+}
+
+#search_bar {
+    margin-bottom: 14px;
+}
+
+/*
+Dashboard
+*/
+
+.row {
+    margin-bottom: 24px !important;
+}

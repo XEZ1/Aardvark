@@ -1,0 +1,50 @@
+{% extends '../base_with_content.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+    <!-- Booking -->
+    <h1>Book a lesson for {{ lesson_request.student_profile.user.full_name }}</h1>
+    <p>Please fill in the lesson booking information below. The student's lesson request information has been provided below each of the relavent fields.</p>
+    <hr/>
+
+    <!-- Display error messages above form -->
+    {% include '../../partials/messages.html' %}
+
+    <form action="{% url 'book_lesson' lesson_request.id %}" method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="mb-3">
+                {{ field.label_tag }}
+                
+                {% if field.name == 'start_date' or field.name == 'end_date' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="date" %}
+                {% elif field.name == 'regular_start_time' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="time" %}
+                {% else %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="" %}
+                {% endif %}
+                
+                {% if field.name == 'interval' %}
+                    <p class="underfield-label">Student requested: {{ lesson_request.interval_formatted }}</p>
+                {% elif field.name == 'duration' %}
+                    <p class="underfield-label">Student requested: {{ lesson_request.duration_formatted }}</p>
+                {% elif field.name == 'quantity' %}
+                    <p class="underfield-label">Student requested: {{ lesson_request.quantity }}</p>
+                {% elif field.name == 'regular_day' %}
+                    <p class="underfield-label">Student availability: {{ lesson_request.availability_formatted }}</p>
+                {% elif field.name == 'teacher' and lesson_request.notes %}
+                    <p class="underfield-label">Student request notes: {{ lesson_request.notes }}</p>
+                {% endif %}
+                
+                <div class="text-danger">
+                    {{ field.errors }}
+                </div>
+
+            </div>
+        {% endfor %}
+        <input type="submit" value="Book" class="btn btn-primary btn-sm">
+        <a href="{% url 'dashboard' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

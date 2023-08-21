@@ -1,0 +1,36 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Register a new school term</h1>
+    <p>You can use the form below to create a new school term.</p>
+    <hr/>
+
+    <!-- Display error messages above form -->
+     {% include '../../partials/messages.html' %}
+
+    <form action="{% url 'register_school_term' %}" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="mb-3">
+                {{ field.label_tag }}
+                
+                {% if field.name == 'label' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field %}
+                {% elif field.name == 'start_date' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="date" %}
+                {% elif field.name == 'end_date' %}
+                    {% include '../../partials/custom_field.html' with form=form field=field type="date" %}
+                {% endif %}
+
+                <div class="text-danger">
+                    {{ field.errors }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <input type="submit" value="Register" class="btn btn-primary btn-sm">
+        <a href="{% url 'dashboard' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

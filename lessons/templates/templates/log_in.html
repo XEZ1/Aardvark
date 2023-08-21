@@ -1,0 +1,18 @@
+{% extends './base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Log in</h1>
+    <p>You can use the form below to log into your account.</p>
+    <hr/>
+
+    <!-- Display error messages above form -->
+     {% include '../partials/messages.html' %}
+
+    <form action="{% url 'log_in' %}" method="post">
+        {% csrf_token %}
+        {% include '../partials/basic_form.html' with form=form %}
+        <p>Don't have an account yet? Click <a href="{% url 'register' %}">here</a> to register a student account.</p>
+        <input type="submit" value="Login" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}

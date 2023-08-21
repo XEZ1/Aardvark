@@ -1,0 +1,50 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage lesson requests</h1>
+    <p>Listed below are all student lesson requests.</p>
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <form id="search_bar" class="d-flex" action="{% url 'view_lesson_requests' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="search_term" placeholder="Search by student name or email" aria-label="Search">
+        <button class="btn btn-primary btn-sm" type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Student</th>
+            <th scope="col">Interval</th>
+            <th scope="col">Duration</th>
+            <th scope="col">No. of Lessons</th>
+            <th scope="col">Availability</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for lesson_request in lesson_requests %}
+            <tr>
+                <td>{{ lesson_request.student_profile.user.full_name }}</td>
+                <td>{{ lesson_request.interval_formatted }}</td>
+                <td>{{ lesson_request.duration_formatted }}</td>
+                <td>{{ lesson_request.quantity }}</td>
+                <td>{{ lesson_request.availability_formatted }}</td>
+                <td>{{ lesson_request.status }}</td>
+                <td>
+                  {% if lesson_request.status == "Unfulfilled" %}
+                    {% if lesson_request.previous_booking %}
+                      <a href="{% url 'book_lesson' lesson_request.id %}" type="button" class="btn btn-primary btn-sm">Book from previous</a>
+                    {% else %}
+                      <a href="{% url 'book_lesson' lesson_request.id %}" type="button" class="btn btn-primary btn-sm">Book</a>
+                    {% endif %}
+                  {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

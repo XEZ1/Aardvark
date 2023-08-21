@@ -1,0 +1,34 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Manage administrator accounts</h1>
+    <p>Listed below are all of the existing administrator accounts. Click <a href="{% url 'register' %}">here</a> to register a new administrator account.</p>
+    <hr/>
+    <!-- Display messages above form -->
+    {% include '../../partials/messages.html' %}
+    <!-- Dynamic table displaying administrator accounts -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for admin in admins %}
+            <tr>
+                <td>{{ admin.first_name }}</td>
+                <td>{{ admin.last_name }}</td>
+                <td>{{ admin.email }}</td>
+                <td>
+                    <a href="{% url 'update_admin' admin.username %}" type="button" class="btn btn-primary btn-sm">Update</a>
+                    <a href="{% url 'delete_admin' admin.username %}" type="button" class="btn btn-secondary btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

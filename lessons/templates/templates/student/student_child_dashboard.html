@@ -1,0 +1,70 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Your student dashboard</h1>
+    <p>Welcome {{ user.full_name }}, this is your central portal to get you wherever you need to go within the system.</p>
+    <hr/>
+
+    <div class="row">
+        <!-- Request a lesson -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Request a lesson</h5>
+              <p class="card-text">Click the button below to make a lesson request. On the next screen, you'll also get to specify your availability.</p>
+              <a href="{% url 'request_lesson' %}" class="btn btn-primary">Request</a>
+            </div>
+          </div>
+        </div>
+        <!-- Manage existing lesson requests -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Manage your existing lesson requests</h5>
+              <p class="card-text">View, edit, or delete existing lesson requests. You can only edit open requests, if you wish to view closed requests, navigate to the bookings section.</p>
+              <a href="{% url 'view_lesson_requests' %}" class="btn btn-primary">Manage requests</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <!-- Manage existing lesson bookings -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Manage existing lesson bookings (a.k.a. schedule of lessons)</h5>
+            <p class="card-text">View existing lesson bookings. To edit a lesson booking, contact the school outside of this system.</p>
+            <a href="{% url 'view_lesson_bookings' %}" class="btn btn-primary">Manage bookings</a>
+          </div>
+        </div>
+      </div>
+
+      {% if user.student_profile.is_child == False %}
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Register one or more of your children</h5>
+            <p class="card-text">To register your child, click the lesson below. If you wish to register multiple children, you can do this here too.</p>
+            <a href="{% url 'register' %}" class="btn btn-primary">Register a child</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- View existing transfers -->
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">View your transactions and balance</h5>
+          <p class="card-text">View all recorded bank transfers that have taken place. You can view your balance here too.</p>
+          <a href="{% url 'view_transactions' user.email %}" class="btn btn-primary">View transactions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

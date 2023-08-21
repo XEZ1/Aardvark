@@ -1,0 +1,19 @@
+{% extends '../base_with_content.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+    <h1>Update {{ admin.full_name }}'s administrative account</h1>
+    <p>You can use the form below to edit this administrator account.</p>
+    <hr/>
+
+    <!-- Display error messages above form -->
+     {% include '../../partials/messages.html' %}
+
+    <form action="{% url 'update_admin' admin.username %}" method="post">
+        {% csrf_token %}
+        {% include '../../partials/basic_form.html' with form=form %}
+        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+        <a href="{% url 'view_admins' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

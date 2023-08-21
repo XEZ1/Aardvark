@@ -1,0 +1,17 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+    <h1>Are you sure you wish to delete {{ teacher.full_name }}'s teacher account?</h1>
+    <p>This operation is unrecoverable if you later decide that the account is needed. The teacher's lesson bookings will also be deleted.</p>
+    <hr/>
+
+    <!-- Admin delete confirmation form -->
+    <form action="{% url 'delete_teacher' teacher.username %}" method="post">
+        {% csrf_token %}
+        <p>Are you sure you wish to proceed?</p>
+        <button type="submit" class="btn btn-primary btn-sm">Confirm</button>
+        <a href="{% url 'view_teachers' %}" type="button" class="btn btn-secondary btn-sm">Cancel</a>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends '../base_with_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="clo-sm-12 col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body mx-4">
+          <div class="container">
+            <h1 class="my-4 text-center">Invoice</h1>
+            <hr>
+            <div class="row">
+              <ul class="list-unstyled">
+                <li class="text-black"><b>To:</b> {{ lesson_booking.lesson_request.student_profile.user.full_name }}</li>
+                <li class="text-black"><b>Email:</b> {{ lesson_booking.lesson_request.student_profile.user.email }}</li>
+                <p></p>
+              </ul>
+              <div class="col-xl-6">
+                <p>{{ lesson_booking.start_date_actual }}</p>
+              </div>
+              <div class="col-xl-6">
+                <p class="float-end"><b>Reference No: </b>{{ lesson_booking.invoice_number }}</p>
+              </div>
+              <hr>
+              <div class="col-xl-8">
+                <p>Price per lesson</p>
+              </div>
+              <div class="col-xl-4">
+                <!-- hard coded as it is outside the scope of the application requirements -->
+                <p class="float-end">5.00 GBP</p>
+              </div>
+              <hr>
+            </div>
+            <div class="row" style="margin-top:-20px">
+              <div class="col-xl-10">
+                <p>Number of lessons</p>
+              </div>
+              <div class="col-xl-2">
+                <p class="float-end">{{ lesson_booking.quantity }}</p>
+              </div>
+              <hr style="border: 2px solid black;">
+            </div>
+            <div class="row">
+              <div class="col-xl-8">
+                <p><b>Fee Due</b></p>
+              </div>
+              <div class="col-xl-4">
+                <p class="float-end"><b>{{ lesson_booking.formatted_total_price }}</b></p>
+              </div>
+              <hr style="border: 2px solid black;">
+            </div>
+            <p>To complete your payment, please contact the school for all required details.
+              Enter your invoice number as reference for your bank transfer.</p>
+            <div class="d-grid gap-2 col-2 mx-auto">
+              <a href="{% url 'view_lesson_bookings' %}" type="button" class="btn btn-primary btn-sm">Return</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p></p>
+{% endblock %}
